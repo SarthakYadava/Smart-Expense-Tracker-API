@@ -17,8 +17,12 @@ function roundMoney(value) {
   return Math.round((value + Number.EPSILON) * 100) / 100;
 }
 
+function normalizeCategory(value) {
+  return isNonEmptyString(value) ? value.trim() : undefined;
+}
+
 function categoryMatches(expense, category) {
-  return expense.category.trim().toLowerCase() === category.trim().toLowerCase();
+  return expense.category.trim().toLowerCase() === category.toLowerCase();
 }
 
 function validateExpenseInput(input) {
@@ -54,11 +58,13 @@ function createExpense(input) {
 }
 
 function filterByCategory(expenses, category) {
-  if (!category) {
+  const normalizedCategory = normalizeCategory(category);
+
+  if (!normalizedCategory) {
     return expenses;
   }
 
-  return expenses.filter((expense) => categoryMatches(expense, category));
+  return expenses.filter((expense) => categoryMatches(expense, normalizedCategory));
 }
 
 function parseBudget(value) {
@@ -76,15 +82,16 @@ function parseBudget(value) {
 }
 
 function calculateTotal(expenses, options = {}) {
-  const filteredExpenses = filterByCategory(expenses, options.category);
+  const category = normalizeCategory(options.category);
+  const filteredExpenses = filterByCategory(expenses, category);
   const total = roundMoney(filteredExpenses.reduce((sum, expense) => sum + expense.amount, 0));
   const response = {
     total,
     count: filteredExpenses.length,
   };
 
-  if (options.category) {
-    response.category = options.category;
+  if (category) {
+    response.category = category;
   }
 
   if (options.budget !== null && options.budget !== undefined) {
@@ -119,9 +126,10 @@ function addCategoryTotal(totals, expense) {
 }
 
 function buildMonthlySummary(expenses, options = {}) {
+  const category = normalizeCategory(options.category);
   const matchingExpenses = filterByCategory(
     expenses.filter((expense) => expense.date.startsWith(`${options.month}-`)),
-    options.category,
+    category,
   );
 
   const byCategory = {};
@@ -134,8 +142,8 @@ function buildMonthlySummary(expenses, options = {}) {
     byCategory,
   };
 
-  if (options.category) {
-    response.category = options.category;
+  if (category) {
+    response.category = category;
   }
 
   return response;
@@ -146,7 +154,9 @@ module.exports = {
   calculateTotal,
   createExpense,
   filterByCategory,
+  normalizeCategory,
   parseBudget,
   parseMonth,
   validateExpenseInput,
 };
+

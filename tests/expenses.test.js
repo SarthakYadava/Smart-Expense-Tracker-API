@@ -115,6 +115,23 @@ describe("Smart Expense Tracker API", () => {
     expect(response.body.map((expense) => expense.title)).toEqual(["Lunch", "Coffee"]);
   });
 
+  test("trims category query values in total responses", async () => {
+    await createExpense({ title: "Lunch", amount: 12.5, category: "Food" });
+
+    const response = await request(app)
+      .get("/expenses/total")
+      .query({ category: " Food ", budget: "50" });
+
+    expect(response.status).toBe(200);
+    expect(response.body).toMatchObject({
+      total: 12.5,
+      count: 1,
+      category: "Food",
+      budget: 50,
+      remaining: 37.5,
+      status: "under_budget",
+    });
+  });
   test("calculates overall and category totals", async () => {
     await createExpense({ title: "Lunch", amount: 12.5, category: "Food" });
     await createExpense({ title: "Coffee", amount: 4.25, category: "Food" });
@@ -221,4 +238,5 @@ describe("Smart Expense Tracker API", () => {
     expect(response.body.error).toBe("month must use a valid month between 01 and 12");
   });
 });
+
 
