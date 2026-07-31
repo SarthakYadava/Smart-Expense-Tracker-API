@@ -101,6 +101,13 @@ Example:
 curl -X POST http://localhost:3000/expenses -H "Content-Type: application/json" -d "{\"title\":\"Lunch\",\"amount\":12.5,\"category\":\"Food\",\"date\":\"2026-07-31\"}"
 ```
 
+PowerShell example:
+
+```powershell
+curl.exe -X POST http://localhost:3000/expenses -H "Content-Type: application/json" -d '{"title":"Lunch","amount":12.5,"category":"Food","date":"2026-07-31"}'
+```
+
+
 Example response:
 
 ```json
@@ -258,5 +265,6 @@ data/expenses.json
 ```
 
 The file is created automatically when the API first needs it. No database setup is required.
+
 
 
