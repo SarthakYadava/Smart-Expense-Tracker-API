@@ -67,13 +67,14 @@ http://localhost:3000/
 ```
 
 To manually test the API, keep the server running and open a second PowerShell window.
-On Windows PowerShell, use `curl.exe` instead of `curl` if PowerShell shows a web request warning.
 
-For example:
+Windows PowerShell works best with `Invoke-RestMethod`:
 
-```bash
-curl http://localhost:3000/
+```powershell
+Invoke-RestMethod http://localhost:3000/
 ```
+
+If you are using Git Bash, macOS, or Linux, the `curl` examples below will also work.
 
 ## Expense Format
 
@@ -108,7 +109,6 @@ $body = @{ title = "Lunch"; amount = 12.5; category = "Food"; date = "2026-07-31
 Invoke-RestMethod -Method Post -Uri http://localhost:3000/expenses -ContentType "application/json" -Body $body
 ```
 
-
 Example response:
 
 ```json
@@ -133,6 +133,12 @@ Example:
 curl http://localhost:3000/expenses
 ```
 
+PowerShell example:
+
+```powershell
+Invoke-RestMethod http://localhost:3000/expenses
+```
+
 ### Filter Expenses by Category
 
 ```http
@@ -143,6 +149,12 @@ Example:
 
 ```bash
 curl "http://localhost:3000/expenses?category=food"
+```
+
+PowerShell example:
+
+```powershell
+Invoke-RestMethod "http://localhost:3000/expenses?category=food"
 ```
 
 Category filtering is case-insensitive, so `Food`, `food`, and `FOOD` match the same category. Surrounding spaces in the category query are ignored.
@@ -157,6 +169,12 @@ Example:
 
 ```bash
 curl http://localhost:3000/expenses/total
+```
+
+PowerShell example:
+
+```powershell
+Invoke-RestMethod http://localhost:3000/expenses/total
 ```
 
 Example response:
@@ -180,6 +198,12 @@ Example:
 curl "http://localhost:3000/expenses/total?category=Food"
 ```
 
+PowerShell example:
+
+```powershell
+Invoke-RestMethod "http://localhost:3000/expenses/total?category=Food"
+```
+
 ### Compare Total Against a Budget
 
 ```http
@@ -191,6 +215,12 @@ Example:
 
 ```bash
 curl "http://localhost:3000/expenses/total?category=Food&budget=50"
+```
+
+PowerShell example:
+
+```powershell
+Invoke-RestMethod "http://localhost:3000/expenses/total?category=Food&budget=50"
 ```
 
 Example response:
@@ -219,6 +249,12 @@ Example:
 curl "http://localhost:3000/expenses/monthly-summary?month=2026-07"
 ```
 
+PowerShell example:
+
+```powershell
+Invoke-RestMethod "http://localhost:3000/expenses/monthly-summary?month=2026-07"
+```
+
 Example response:
 
 ```json
@@ -245,6 +281,12 @@ Example:
 curl -X DELETE http://localhost:3000/expenses/generated-id
 ```
 
+PowerShell example:
+
+```powershell
+Invoke-RestMethod -Method Delete -Uri http://localhost:3000/expenses/generated-id
+```
+
 A successful delete returns status `204 No Content`.
 
 ## Validation Rules
@@ -266,3 +308,4 @@ data/expenses.json
 ```
 
 The file is created automatically when the API first needs it. No database setup is required.
+
