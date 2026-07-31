@@ -232,6 +232,7 @@ A successful delete returns status `204 No Content`.
 
 ## Validation Rules
 
+- Request bodies must be valid JSON.
 - `title` is required and cannot be empty.
 - `amount` is required and must be a number greater than `0`.
 - `category` is required and cannot be empty.
@@ -248,4 +249,3 @@ data/expenses.json
 ```
 
 The file is created automatically when the API first needs it. No database setup is required.
-

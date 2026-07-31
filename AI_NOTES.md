@@ -53,10 +53,12 @@ I validated the following behavior:
 - The optional budget comparison correctly returns `budget`, `remaining`, and `status` values.
 - The monthly summary endpoint returns totals for the requested month and groups spending by category.
 - The monthly summary endpoint supports optional category filtering.
+- Invalid JSON request bodies return a clear `400` response instead of a generic server error.
 
 Specific changes and review points:
 
 - In `src/app.js`, I reviewed the route structure and kept the API surface close to the assignment requirements.
+- In `src/app.js`, I added specific handling for invalid JSON request bodies so malformed requests return a clear `400` response.
 - In `src/expenses.js`, I refined category filtering to be case-insensitive instead of exact-match only.
 - In `src/expenses.js`, I kept validation rules explicit and readable so the API returns clear `400` errors for bad input.
 - In the total calculation logic, I added optional budget comparison so totals can show whether spending is under or over a provided budget.
