@@ -42,6 +42,12 @@ A JavaScript/Express REST API for managing personal expenses, with JSON file sto
 npm install
 ```
 
+## Run Tests
+
+```bash
+npm test
+```
+
 ## Start the Server
 
 ```bash
@@ -58,12 +64,6 @@ You can open the root route to see the available endpoints:
 
 ```text
 http://localhost:3000/
-```
-
-## Run Tests
-
-```bash
-npm test
 ```
 
 ## Expense Format
