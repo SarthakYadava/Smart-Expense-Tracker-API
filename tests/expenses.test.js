@@ -66,6 +66,15 @@ describe("Smart Expense Tracker API", () => {
     expect(response.body.id).toEqual(expect.any(String));
   });
 
+  test("rejects invalid JSON request bodies", async () => {
+    const response = await request(app)
+      .post("/expenses")
+      .set("Content-Type", "application/json")
+      .send("{bad json");
+
+    expect(response.status).toBe(400);
+    expect(response.body.error).toBe("request body must be valid JSON");
+  });
   test("rejects missing fields and invalid values", async () => {
     const response = await request(app).post("/expenses").send({
       title: " ",
@@ -212,3 +221,4 @@ describe("Smart Expense Tracker API", () => {
     expect(response.body.error).toBe("month must use a valid month between 01 and 12");
   });
 });
+

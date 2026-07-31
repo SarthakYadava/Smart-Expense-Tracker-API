@@ -109,10 +109,15 @@ function createApp(store = new ExpenseStore()) {
   });
 
   app.use((error, req, res, next) => {
-    res.status(500).json({ error: "internal server error" });
+    if (error instanceof SyntaxError && error.status === 400 && "body" in error) {
+      return res.status(400).json({ error: "request body must be valid JSON" });
+    }
+
+    return res.status(500).json({ error: "internal server error" });
   });
 
   return app;
 }
 
 module.exports = createApp;
+
