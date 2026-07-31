@@ -65,6 +65,13 @@ You can open the root route to see the available endpoints:
 ```text
 http://localhost:3000/
 ```
+To manually test the API, keep the server running and open a second PowerShell window.
+
+For example:
+
+```bash
+curl http://localhost:3000/
+```
 
 ## Expense Format
 
@@ -249,3 +256,4 @@ data/expenses.json
 ```
 
 The file is created automatically when the API first needs it. No database setup is required.
+
