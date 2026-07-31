@@ -72,6 +72,10 @@ function parseBudget(value) {
     return { budget: null };
   }
 
+  if (typeof value === "string" && value.trim() === "") {
+    return { error: "budget must be a number greater than or equal to 0" };
+  }
+
   const budget = Number(value);
 
   if (!Number.isFinite(budget) || budget < 0) {
@@ -159,4 +163,5 @@ module.exports = {
   parseMonth,
   validateExpenseInput,
 };
+
 

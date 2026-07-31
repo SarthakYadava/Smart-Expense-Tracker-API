@@ -175,6 +175,12 @@ describe("Smart Expense Tracker API", () => {
     expect(response.status).toBe(400);
     expect(response.body.error).toBe("budget must be a number greater than or equal to 0");
   });
+  test("rejects empty budget values", async () => {
+    const response = await request(app).get("/expenses/total?budget=");
+
+    expect(response.status).toBe(400);
+    expect(response.body.error).toBe("budget must be a number greater than or equal to 0");
+  });
 
   test("deletes an expense by id", async () => {
     const expense = await createExpense({ title: "Lunch" });
@@ -238,5 +244,6 @@ describe("Smart Expense Tracker API", () => {
     expect(response.body.error).toBe("month must use a valid month between 01 and 12");
   });
 });
+
 
 
