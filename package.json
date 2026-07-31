@@ -1,0 +1,26 @@
+{
+  "name": "smart-expense-tracker-api",
+  "version": "1.0.0",
+  "description": "A JavaScript/Express REST API for managing personal expenses.",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "test": "jest"
+  },
+  "keywords": [
+    "expenses",
+    "express",
+    "rest-api"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2",
+    "nanoid": "^5.0.7"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "supertest": "^7.0.0"
+  }
+}
