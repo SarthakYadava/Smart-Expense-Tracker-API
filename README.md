@@ -104,7 +104,8 @@ curl -X POST http://localhost:3000/expenses -H "Content-Type: application/json" 
 PowerShell example:
 
 ```powershell
-curl.exe -X POST http://localhost:3000/expenses -H "Content-Type: application/json" -d '{"title":"Lunch","amount":12.5,"category":"Food","date":"2026-07-31"}'
+$body = @{ title = "Lunch"; amount = 12.5; category = "Food"; date = "2026-07-31" } | ConvertTo-Json
+Invoke-RestMethod -Method Post -Uri http://localhost:3000/expenses -ContentType "application/json" -Body $body
 ```
 
 
@@ -265,6 +266,3 @@ data/expenses.json
 ```
 
 The file is created automatically when the API first needs it. No database setup is required.
-
-
-
