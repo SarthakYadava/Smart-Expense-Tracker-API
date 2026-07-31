@@ -20,6 +20,7 @@ The parts I specifically directed, reviewed, or refined were:
   - I chose case-insensitive filtering because users may enter categories in different formats, such as `Food`, `food`, or `FOOD`.
   - This makes the API more forgiving and avoids missing expenses only because of capitalization differences.
   - This behavior is implemented in `src/expenses.js` through the category comparison helper and verified in `tests/expenses.test.js`.
+  - I later refined this further so category query values are trimmed before filtering and before being returned in total or monthly summary responses.
 
 - **Adding budget comparison to the total endpoint**
   - I noticed the assignment said "smart expense tracker," so I added a lightweight budget comparison to the total endpoint. It does not complicate storage, but it makes the API more useful.
@@ -54,17 +55,21 @@ I validated the following behavior:
 - The monthly summary endpoint returns totals for the requested month and groups spending by category.
 - The monthly summary endpoint supports optional category filtering.
 - Invalid JSON request bodies return a clear `400` response instead of a generic server error.
+- Empty budget query values, such as `?budget=`, return a clear `400` response instead of being treated as zero.
 
 Specific changes and review points:
 
 - In `src/app.js`, I reviewed the route structure and kept the API surface close to the assignment requirements.
 - In `src/app.js`, I added specific handling for invalid JSON request bodies so malformed requests return a clear `400` response.
 - In `src/expenses.js`, I refined category filtering to be case-insensitive instead of exact-match only.
+- In `src/expenses.js`, I normalized category query values by trimming whitespace before filtering or returning category metadata.
+- In `src/expenses.js`, I changed budget parsing so empty budget query strings are rejected instead of being converted to `0` by JavaScript.
 - In `src/expenses.js`, I kept validation rules explicit and readable so the API returns clear `400` errors for bad input.
 - In the total calculation logic, I added optional budget comparison so totals can show whether spending is under or over a provided budget.
 - In the monthly summary logic, I grouped category totals while still treating category names case-insensitively.
 - In `src/storage.js`, I kept storage local and simple by using a JSON file that is created automatically when needed.
 - In `tests/expenses.test.js`, I checked coverage for required features, validation errors, deletion behavior, category filtering, totals, budget comparison, and monthly summaries.
+- In `tests/expenses.test.js`, I added regression tests for trimmed category filters and empty budget values after reviewing the API behavior.
 - In `README.md`, I adjusted the setup and API examples so the reviewer can quickly install, run, and test the project.
 
 I manually reviewed the generated code, tested the main API flows, adjusted the README examples, and chose not to add authentication, a database, or a frontend because those were outside the assignment scope.

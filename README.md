@@ -128,7 +128,7 @@ Example:
 curl "http://localhost:3000/expenses?category=food"
 ```
 
-Category filtering is case-insensitive, so `Food`, `food`, and `FOOD` match the same category.
+Category filtering is case-insensitive, so `Food`, `food`, and `FOOD` match the same category. Surrounding spaces in the category query are ignored.
 
 ### Calculate Total Expenses
 
