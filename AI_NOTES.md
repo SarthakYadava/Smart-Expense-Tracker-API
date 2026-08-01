@@ -27,14 +27,19 @@ The parts I specifically directed, reviewed, or refined were:
   - The budget comparison is available through `GET /expenses/total?budget=500` and `GET /expenses/total?category=Food&budget=150`.
   - This differentiates my submission because many solutions would only implement basic CRUD. Mine adds a small product-thinking improvement: expenses are not just stored, they are interpreted.
 
-- **Choosing the monthly summary endpoint as the optional bonus**
-  - I chose monthly summaries because they fit naturally with expense tracking and are useful without requiring a frontend, database, or authentication.
-  - This is implemented as `GET /expenses/monthly-summary?month=YYYY-MM` with optional category filtering.
-  - I chose this over Swagger or Docker because it improves the API behavior directly while keeping the setup simple for reviewers.
-
 - **Reviewing the documentation and examples**
   - I kept `README.md` focused on setup commands, endpoint examples, validation rules, and storage behavior.
-  - I made sure the required commands are written exactly and can be copied by a reviewer: `npm install`, `npm start`, and `npm test`.
+  - I made sure the required commands are written exactly and can be copied by a reviewer: `npm install`, `npm test`, and `npm start`.
+
+### Optional Bonus Decision
+
+I chose the monthly summary endpoint as the optional bonus feature.
+
+- I chose monthly summaries because they fit naturally with a personal expense tracker. A user would likely want to understand spending by month, not only see individual expenses.
+- I implemented it as `GET /expenses/monthly-summary?month=YYYY-MM` so the endpoint is simple to call and easy to test.
+- I added optional category filtering with `GET /expenses/monthly-summary?month=YYYY-MM&category=Food` because it reuses the same filtering idea from the main expense list.
+- I chose this over Swagger, Docker, or search because it improves the API behavior directly without adding setup complexity for reviewers.
+- This kept the optional bonus focused on the assignment's core domain instead of adding tooling that was less relevant to expense tracking.
 
 ## 2. What I Validated, Tested, or Changed in the AI Output, and Why
 

@@ -12,6 +12,23 @@ A JavaScript/Express REST API for managing personal expenses, with JSON file sto
 - Compare spending against an optional budget
 - Get a monthly summary with totals grouped by category
 
+## Optional Bonus Implemented
+
+This project implements the monthly summary endpoint as the optional bonus feature.
+
+```http
+GET /expenses/monthly-summary?month=2026-07
+GET /expenses/monthly-summary?month=2026-07&category=Food
+```
+
+This endpoint summarizes expenses for a selected month, returns the total amount, counts matching expenses, and groups totals by category.
+
+Example:
+
+```powershell
+Invoke-RestMethod "http://localhost:3000/expenses/monthly-summary?month=2026-07"
+```
+
 ## Tech Stack
 
 - Node.js
@@ -308,4 +325,3 @@ data/expenses.json
 ```
 
 The file is created automatically when the API first needs it. No database setup is required.
-
